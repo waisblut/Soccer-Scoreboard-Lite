@@ -28,7 +28,7 @@ public class FragmentMain
 
     //region Variables...
     private RelativeLayout mRlA, mRlB, mRlA_Back, mRlB_Back;
-    private Dialog mDlgConfig, mDlgHelp;
+    private Dialog mDlgHelp;
     private Button mBtnUndoA;
     private Button mBtnUndoB;
     private TextView mTxtNameA, mTxtNameB;
@@ -134,8 +134,10 @@ public class FragmentMain
     {
         super.onDestroy();
 
-        mDlgConfig.dismiss();
-        mDlgHelp.dismiss();
+        if (mDlgHelp != null)
+        {
+            mDlgHelp.dismiss();
+        }
     }
 
     private void setInitialSettings()
