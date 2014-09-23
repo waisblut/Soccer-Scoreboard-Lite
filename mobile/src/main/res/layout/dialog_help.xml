@@ -7,7 +7,7 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical"
         android:gravity="center">
 
@@ -103,6 +103,23 @@
                 android:layout_column="0"
                 android:text="@string/obs"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_span="2"
+                android:id="@+id/txtFullApp"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:text="@string/full_version"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </TableRow>
     </TableLayout>
 </ScrollView>

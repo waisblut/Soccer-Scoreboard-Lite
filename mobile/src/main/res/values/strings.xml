@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Soccer Scoreboard Lite</string>
+    <string name="app_name" translatable="false">Soccer Scoreboard Lite</string>
     <string name="action_settings">Settings</string>
     <string name="undo">Undo</string>
     <string name="team_A">Home</string>
@@ -22,5 +22,8 @@
     <string name="help_reset">LONG PRESS to Reset Scores\nIf Score is 0:0, then it will\nReset Team Name and Color</string>
     <string name="help_reset.7">LONG PRESS to Reset Scores If Score is 0:0,\nthen it will Reset Team Name and Color</string>
     <string name="help_reset.10">LONG PRESS to Reset Scores If Score is 0:0,\nthen it will Reset Team Name and Color</string>
-    <string name="obs">* This is the free version.\n\n- Some features is only available over the paid version.\n\n- If you have any comment or suggestion, please contact us at waisblutmobileapp@gmail.com\n\n- If you like this App, please support Development by installing the US$ 1.00 paid version ;)</string>
+    <string name="obs">* This is the Free Version.\n\n- Some features are only available on the Paid Version.\n\n- For any comment or suggestion, please contact us at waisblutmobileapp@gmail.com\n\n- If you like this Appication, please support Development by installing the US$0.99 Version ;)</string>
+    <string name="full_version">
+        <![CDATA[<a href="https://play.google.com/store/apps/developer?id=Waisblut+Mobile+Applications">PRESS HERE FOR THE FULL VERSION</a><p>(Yet to be released!)</p>]]>
+    </string>
 </resources>

@@ -4,10 +4,13 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,8 @@ import android.widget.Toast;
 
 import com.waisblut.soccerscoreboardlite.Logger;
 import com.waisblut.soccerscoreboardlite.R;
+
+import java.util.regex.Pattern;
 
 public class FragmentMain
         extends Fragment
@@ -282,13 +287,32 @@ public class FragmentMain
         mDlgHelp = new Dialog(getActivity());
 
 
-        mDlgHelp.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //mDlgHelp.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDlgHelp.setContentView(R.layout.dialog_help);
-        TextView txtObs = (TextView) mDlgHelp.findViewById(R.id.txtObs);
-        //mDlgHelp.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        // mDlgHelp.getWindow().setDimAmount(0.05f);
+        mDlgHelp.setTitle(getString(R.string.app_name) + " " + getVersionName());
 
+        TextView txtFullVersion = (TextView) mDlgHelp.findViewById(R.id.txtFullApp);
+
+        txtFullVersion.setText(Html.fromHtml(getString(R.string.full_version)));
+        txtFullVersion.setMovementMethod(LinkMovementMethod.getInstance());
         mDlgHelp.show();
+    }
+
+    private String getVersionName()
+    {
+        String versionName = "";
+        try
+        {
+            versionName = getActivity().getPackageManager()
+                                       .getPackageInfo(getActivity().getPackageName(),
+                                                       0).versionName;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+        return versionName;
     }
 
     //    private void create_A_dialog(final char tag)
