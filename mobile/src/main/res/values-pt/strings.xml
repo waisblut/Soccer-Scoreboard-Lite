@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Soccer Scoreboard Lite</string>
+    <string name="app_name">Placar da Pelada Lite</string>
     <string name="action_settings">Configurações</string>
     <string name="full_version"><![CDATA[<a href="https://play.google.com/store/apps/developer?id=Waisblut+Mobile+Applications">CLIQUE AQUI PARA A VERSÃO FULL</a><p>(A ser lançada ainda!)</p>]]></string>
     <string name="help_config">PRESSIONE para\nconfigurar nome e cor do time.</string>
