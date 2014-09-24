@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:text="@string/obs"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:text="@string/full_version"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceLarge" />
         </TableRow>
     </TableLayout>
 </ScrollView>
