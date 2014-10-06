@@ -10,11 +10,9 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -23,8 +21,6 @@ import android.widget.Toast;
 
 import com.waisblut.soccerscoreboardlite.Logger;
 import com.waisblut.soccerscoreboardlite.R;
-
-import java.util.regex.Pattern;
 
 public class FragmentMain
         extends Fragment
@@ -169,14 +165,6 @@ public class FragmentMain
         {
             switch (v.getId())
             {
-            case R.id.imgBtn_Config_A:
-                //create_A_dialog('A');
-                break;
-
-            case R.id.imgBtn_Config_B:
-                //create_A_dialog('B');
-                break;
-
             case R.id.imgBtnHelp:
                 create_A_dialogHelp();
                 break;
@@ -286,7 +274,6 @@ public class FragmentMain
     {
         mDlgHelp = new Dialog(getActivity());
 
-
         //mDlgHelp.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDlgHelp.setContentView(R.layout.dialog_help);
         mDlgHelp.setTitle(getString(R.string.app_name) + " " + getVersionName());
@@ -315,136 +302,6 @@ public class FragmentMain
         return versionName;
     }
 
-    //    private void create_A_dialog(final char tag)
-    //    {
-    //        mDlgConfig = new Dialog(getActivity());
-    //        WindowManager.LayoutParams wmlp;
-    //        //final ImageButton imgBtnRed, imgBtnGreen, imgBtnYellow;
-    //        final EditText edtTeamName;
-    //
-    //        setUpWindow();
-    //
-    //        wmlp = mDlgConfig.getWindow().getAttributes();
-    //        wmlp.horizontalMargin = 0.1f;
-    //        wmlp.verticalMargin = 0.1f;
-    //
-    //        mDlgConfig.setContentView(R.layout.dialog_config);
-    //
-    //        edtTeamName = (EditText) mDlgConfig.findViewById(R.id.edtTeamName);
-    //        edtTeamName.addTextChangedListener(new TextWatcher()
-    //        {
-    //            @Override
-    //            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-    //            {
-    //
-    //            }
-    //
-    //            @Override
-    //            public void onTextChanged(CharSequence s, int start, int before, int count)
-    //            {
-    //
-    //            }
-    //
-    //            @Override
-    //            public void afterTextChanged(Editable s)
-    //            {
-    //                String str = s.toString().trim();
-    //
-    //                if (tag == 'A')
-    //                {
-    //                    mTxtNameA.setText(str);
-    //                }
-    //                else if (tag == 'B')
-    //                {
-    //                    mTxtNameB.setText(str);
-    //                }
-    //            }
-    //        });
-    //
-    //        View.OnClickListener myClick = new View.OnClickListener()
-    //        {
-    //            @Override
-    //            public void onClick(View v)
-    //            {
-    //                RelativeLayout rl = new RelativeLayout(getActivity());
-    //
-    //                if (tag == 'A')
-    //                {
-    //                    rl = mRlA;
-    //                }
-    //                else if (tag == 'B')
-    //                {
-    //                    rl = mRlB;
-    //                }
-    //
-    //                switch (v.getId())
-    //                {
-    //                case R.id.imgButton_Yellow:
-    //                    setBackground(rl, R.drawable.background_team_divider_yellow);
-    //                    break;
-    //
-    //                case R.id.imgButton_Blue:
-    //                    setBackground(rl, R.drawable.background_team_divider_blue);
-    //                    break;
-    //
-    //                case R.id.imgButton_Red:
-    //                    setBackground(rl, R.drawable.background_team_divider_red);
-    //                    break;
-    //
-    //                case R.id.imgButton_Green:
-    //                    setBackground(rl, R.drawable.background_team_divider_green);
-    //                    break;
-    //                }
-    //            }
-    //        };
-    //
-    //        setImgButton(R.id.imgButton_Blue, myClick, tag);
-    //        setImgButton(R.id.imgButton_Green, myClick, tag);
-    //        setImgButton(R.id.imgButton_Red, myClick, tag);
-    //        setImgButton(R.id.imgButton_Yellow, myClick, tag);
-    //
-    //        mDlgConfig.setOnDismissListener(new DialogInterface.OnDismissListener()
-    //        {
-    //            @Override
-    //            public void onDismiss(DialogInterface dialog)
-    //            {
-    //                switch (tag)
-    //                {
-    //                case 'B':
-    //                    setBackground(mRlA_Back, R.drawable.soccer_field_left);
-    //                    break;
-    //
-    //                case 'A':
-    //                    setBackground(mRlB_Back, R.drawable.soccer_field_right);
-    //                    break;
-    //                }
-    //
-    //                mRlA.setVisibility(View.VISIBLE);
-    //                mRlB.setVisibility(View.VISIBLE);
-    //
-    //                mSp.edit().putString(Logger.TEAM_A_NAME, mTxtNameA.getText().toString()).apply();
-    //                mSp.edit().putString(Logger.TEAM_B_NAME, mTxtNameB.getText().toString()).apply();
-    //            }
-    //        });
-    //
-    //        switch (tag)
-    //        {
-    //        case 'A':
-    //            wmlp.gravity = Gravity.TOP | Gravity.END;
-    //            mRlB.setVisibility(View.INVISIBLE);
-    //            setBackground(mRlB_Back, android.R.color.black);
-    //            break;
-    //
-    //        case 'B':
-    //            wmlp.gravity = Gravity.TOP | Gravity.START;
-    //            mRlA.setVisibility(View.INVISIBLE);
-    //            setBackground(mRlA_Back, android.R.color.black);
-    //            break;
-    //        }
-    //
-    //        mDlgConfig.show();
-    //    }
-
     //region Dialog Methods....
     @SuppressWarnings("deprecation")
     private void setBackground(View v, int color)
@@ -469,25 +326,6 @@ public class FragmentMain
 
 
     }
-
-    //    private void setUpWindow()
-    //    {
-    //        mDlgConfig.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    //
-    //        mDlgConfig.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-    //        mDlgConfig.getWindow().setDimAmount(0.05f);
-    //    }
-    //
-    //    private ImageButton setImgButton(int id, View.OnClickListener myClick, char tag)
-    //    {
-    //        ImageButton imgButton;
-    //
-    //        imgButton = (ImageButton) mDlgConfig.findViewById(id);
-    //        imgButton.setTag(tag);
-    //        imgButton.setOnClickListener(myClick);
-    //
-    //        return imgButton;
-    //    }
     //endregion
     //endregion
 }
