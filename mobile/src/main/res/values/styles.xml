@@ -8,11 +8,12 @@
 
     <style name="TextScore" parent="android:TextAppearance.DeviceDefault.Large">
         <item name="android:textSize">120sp</item>
-        <item name="android:textColor">#ff123456</item>
+        <item name="android:textColor">#fffdfa04</item>
         <item name="android:typeface">monospace</item>
         <item name="android:textStyle">bold</item>
         <item name="android:maxLines">1</item>
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@drawable/background_text</item>
+        <item name="android:padding">5dp</item>
     </style>
 
     <style name="TextScore.7">
