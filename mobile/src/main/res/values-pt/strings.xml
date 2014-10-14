@@ -20,6 +20,9 @@
     <string name="team_A">Local</string>
     <string name="team_B">Visitante</string>
     <string name="team_name_hint">Digite o nome de um time</string>
-    <string name="undo">Desfazer</string>
+    <string name="undo">-1</string>
     <string name="obs">* Esta é a versão gratuita.\n\n- Algumas funcionalidades só existem na versão paga.\n\n- Para qualquer comentário ou sugestão, por favor entre em contato em waisblutmobileapp@gmail.com\n\n- Se você gostou desse Aplicativo, por favor ajude o desenvolvimento instalando a versão paga, por apenas US$0.99 ;)</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
 </resources>

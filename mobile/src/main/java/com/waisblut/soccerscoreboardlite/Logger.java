@@ -2,8 +2,6 @@ package com.waisblut.soccerscoreboardlite;
 
 import android.util.Log;
 
-import com.waisblut.soccerscoreboardlite.BuildConfig;
-
 public final class Logger
 {
     //Project Constants
@@ -15,6 +13,7 @@ public final class Logger
     public final static String TEAM_B_NAME = "Team B Name";
     public final static String TEAM_A_COLOR = "Team A Color";
     public final static String TEAM_B_COLOR = "Team B Color";
+    public final static int SCORE_MAX = 99;
 
     private final static boolean IS_DEBUG = BuildConfig.DEBUG;
 

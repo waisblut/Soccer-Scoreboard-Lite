@@ -22,12 +22,52 @@ import android.widget.Toast;
 import com.waisblut.soccerscoreboardlite.Logger;
 import com.waisblut.soccerscoreboardlite.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
 public class FragmentMain
         extends Fragment
         implements View.OnClickListener
 {
+    protected enum TimerState
+    {
+        STOPPED(0),
+        PLAYING(1),
+        PAUSED(2);
+
+        protected int code;
+
+        TimerState(int i)
+        {
+            this.code = i;
+        }
+
+        protected static TimerState fromValue(int value)
+        {
+            for (TimerState my : TimerState.values())
+            {
+                if (my.code == value)
+                {
+                    return my;
+                }
+            }
+
+            return null;
+        }
+
+        protected int getCode()
+        {
+            return code;
+        }
+    }
 
     //region Variables...
+    private TimerState mTimerState = null;
+    private long mDuration = 15000l;
+    private Timer mTimer = new Timer();
+    private TextView mTxtTimer;
+
     private RelativeLayout mRlA, mRlB, mRlA_Back, mRlB_Back;
     private Dialog mDlgHelp;
     private Button mBtnUndoA;
@@ -40,6 +80,7 @@ public class FragmentMain
 
     public FragmentMain() {}
 
+    //region Fragment events
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -61,6 +102,8 @@ public class FragmentMain
 
         mTxtScoreA = (TextView) view.findViewById(R.id.txtScore_A);
         mTxtScoreB = (TextView) view.findViewById(R.id.txtScore_B);
+
+        mTxtTimer = (TextView) view.findViewById(R.id.txtTimer);
 
         mRlA = (RelativeLayout) view.findViewById(R.id.lay_A);
         mRlB = (RelativeLayout) view.findViewById(R.id.lay_B);
@@ -100,12 +143,30 @@ public class FragmentMain
                     else
                     {
                         resetCounters();
-                        //                        Toast.makeText(getActivity(),
-                        //                                       getResources().getString(R.string.long_press_reset_all),
-                        //                                       Toast.LENGTH_SHORT).show();
                     }
-
+                    stop();
                     break;
+
+                case R.id.txtTimer:
+                    //                    switch (mTimerState)
+                    //                    {
+                    //                    case PAUSED:
+                    //                        play();
+                    //                        break;
+                    //
+                    //                    case PLAYING:
+                    //                        pause();
+                    //                        break;
+                    //
+                    //                    case STOPPED:
+                    //                        play();
+                    //                        break;
+                    //
+                    //                    }
+                    //                    break;
+
+                    callTimePicker();
+                    play();
                 }
 
                 return true;
@@ -125,10 +186,13 @@ public class FragmentMain
         mBtnUndoA.setOnLongClickListener(myLongClick);
         mBtnUndoB.setOnLongClickListener(myLongClick);
         btnReset.setOnLongClickListener(myLongClick);
+        mTxtTimer.setOnLongClickListener(myLongClick);
         //endregion
 
         return view;
     }
+
+    private void callTimePicker() {}
 
     @Override
     public void onDestroy()
@@ -139,23 +203,6 @@ public class FragmentMain
         {
             mDlgHelp.dismiss();
         }
-    }
-
-    private void setInitialSettings()
-    {
-        mCounterA = changeScore(mSp.getInt(Logger.TEAM_A_SCORE, 0), 'A');
-        mCounterB = changeScore(mSp.getInt(Logger.TEAM_B_SCORE, 0), 'B');
-
-
-        mTxtNameA.setText(mSp.getString(Logger.TEAM_A_NAME,
-                                        getActivity().getResources().getString(R.string.team_A)));
-        mTxtNameB.setText(mSp.getString(Logger.TEAM_B_NAME,
-                                        getActivity().getResources().getString(R.string.team_B)));
-
-        setBackground(mRlA, mSp.getInt(Logger.TEAM_A_COLOR,
-                                       R.drawable.background_team_divider_red));
-        setBackground(mRlB, mSp.getInt(Logger.TEAM_B_COLOR,
-                                       R.drawable.background_team_divider_blue));
     }
 
     @Override
@@ -173,6 +220,7 @@ public class FragmentMain
                 Toast.makeText(getActivity(),
                                getResources().getString(R.string.long_press_reset),
                                Toast.LENGTH_SHORT).show();
+                showPicker();
                 break;
             }
         }
@@ -212,11 +260,58 @@ public class FragmentMain
             }
         }
     }
+    //endregion
 
     //region Private Methods...
+    //region Timer Methods
+    private void play()
+    {
+        //TODO To be implemented
+        //TODO Toogle between PLAY/PAUSE on Button
+        Logger.log('d', "PLAY");
+        this.mTimerState = TimerState.PLAYING;
+        setCounter(mDuration);
+    }
+
+    private void pause()
+    {
+        this.mTimerState = TimerState.PAUSED;
+        Logger.log('d', "PAUSE");
+        //TODO To be implemented
+    }
+
+    private void stop()
+    {
+        this.mTimerState = TimerState.STOPPED;
+        Logger.log('d', "STOP");
+        //TODO To be implemented
+    }
+    //endregion
+
+    private void setInitialSettings()
+    {
+        mCounterA = changeScore(mSp.getInt(Logger.TEAM_A_SCORE, 0), 'A');
+        mCounterB = changeScore(mSp.getInt(Logger.TEAM_B_SCORE, 0), 'B');
+
+
+        mTxtNameA.setText(mSp.getString(Logger.TEAM_A_NAME,
+                                        getActivity().getResources().getString(R.string.team_A)));
+        mTxtNameB.setText(mSp.getString(Logger.TEAM_B_NAME,
+                                        getActivity().getResources().getString(R.string.team_B)));
+
+        setBackground(mRlA, mSp.getInt(Logger.TEAM_A_COLOR,
+                                       R.drawable.background_team_divider_red));
+        setBackground(mRlB, mSp.getInt(Logger.TEAM_B_COLOR,
+                                       R.drawable.background_team_divider_blue));
+
+        this.mTimerState = TimerState.STOPPED;
+
+        //TODO DISABLE BUTTON STOP
+    }
+
     private int changeScore(int value, char team)
     {
-        value = (value < 0) ? 0 : value;
+        value = checkValue(value);
 
         if (team == 'A')
         {
@@ -232,6 +327,21 @@ public class FragmentMain
 
         Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(50);
+
+        return value;
+    }
+
+    private int checkValue(int value)
+    {
+        if (value < 0)
+        {
+            value = 0;
+        }
+
+        if (value > Logger.SCORE_MAX)
+        {
+            value = Logger.SCORE_MAX;
+        }
 
         return value;
     }
@@ -308,11 +418,41 @@ public class FragmentMain
     {
         if (Build.VERSION.SDK_INT >= 16)
         {
-            v.setBackground(getResources().getDrawable(color));
+            try
+            {
+                v.setBackground(getResources().getDrawable(color));
+            }
+            catch (Exception e)
+            {
+                switch (v.getTag().toString().charAt(0))
+                {
+                case 'A':
+                    v.setBackground(getResources().getDrawable(R.drawable.background_team_divider_red));
+                    break;
+                case 'B':
+                    v.setBackground(getResources().getDrawable(R.drawable.background_team_divider_blue));
+                    break;
+                }
+            }
         }
         else
         {
-            v.setBackgroundDrawable(getResources().getDrawable(color));
+            try
+            {
+                v.setBackgroundDrawable(getResources().getDrawable(color));
+            }
+            catch (Exception e)
+            {
+                switch (v.getTag().toString().charAt(0))
+                {
+                case 'A':
+                    v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background_team_divider_red));
+                    break;
+                case 'B':
+                    v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background_team_divider_blue));
+                    break;
+                }
+            }
         }
 
         if (v.getId() == mRlA.getId())
@@ -328,4 +468,77 @@ public class FragmentMain
     }
     //endregion
     //endregion
+
+    //region Timer
+    private void setCounter(final long duration)
+    {
+        mTimer = new Timer();
+        final long startTime = duration + System.currentTimeMillis();
+
+        mTimer.scheduleAtFixedRate(new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                final long timeLeft = (startTime - System.currentTimeMillis());
+
+                if (timeLeft > 0)
+                {
+                    Logger.log('d', "Ticking...." + (timeLeft));
+
+                    getActivity().runOnUiThread(new Runnable()
+                    {
+                        public void run()
+                        {
+                            setMillisOnTextView(mTxtTimer, timeLeft);
+                            //mTxtTimer.setText(String.valueOf(timeLeft));
+                        }
+                    });
+                }
+                else
+                {
+                    Logger.log('d', "DONE");
+
+                    //playSound();
+
+                    mTimer.cancel();
+                }
+            }
+
+        }, 0, 450);
+    }
+
+    protected void setMillisOnTextView(TextView txtView, long millisUntilFinished)
+    {
+        String strFormat = "%02d:%02d";
+        txtView.setText("" + String.format(strFormat, TimeUnit.MILLISECONDS.toMinutes(
+                                                   millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                                   TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+
+                                           TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                           TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(
+                                                   millisUntilFinished))));
+    }
+    //endregion
+
+    public void showPicker()
+    {
+        Dialog_MyTimePicker.OnTimeSetListener listener = new Dialog_MyTimePicker.OnTimeSetListener()
+        {
+            @Override
+            public void onTimeSet(MyTimePicker view, int minute, int seconds)
+            {
+                mDuration = (minute * 60 + seconds) * 1000;
+
+                setMillisOnTextView(mTxtTimer, mDuration);
+            }
+        };
+
+        //TODO PASS A DEFAULT MINUTE/SECOND
+        Dialog_MyTimePicker mTimePicker = new Dialog_MyTimePicker(this.getActivity(),
+                                                                  listener,
+                                                                  0,12);
+
+        mTimePicker.show();
+    }
 }

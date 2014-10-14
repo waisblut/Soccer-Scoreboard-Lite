@@ -40,6 +40,11 @@
     <style name="MyButton" parent="android:Widget.Button">
         <item name="android:textColor">#ff333333</item>
         <item name="android:background">@drawable/custom_buttom</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxHeight">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">48dp</item>
     </style>
 
     <style name="ColorButton" parent="android:Widget.Button">
