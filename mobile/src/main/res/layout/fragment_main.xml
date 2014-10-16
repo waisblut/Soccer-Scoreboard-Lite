@@ -1,4 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:id="@+id/rlMain"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -81,9 +83,9 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:textSize="21sp"
                 android:tag="A"
-                android:text="@string/undo" />
+                android:text="@string/undo"
+                android:textSize="21sp" />
 
             <TextView
                 android:id="@+id/txtScore_A"
@@ -128,8 +130,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_gravity="end"
                 android:tag="B"
-                android:textSize="21sp"
-                android:text="@string/undo" />
+                android:text="@string/undo"
+                android:textSize="21sp" />
 
             <TextView
                 android:id="@+id/txtScore_B"
@@ -152,37 +154,37 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal|center_vertical"
         android:orientation="horizontal"
-        android:padding="5dp"
-        android:gravity="center_horizontal|center_vertical">
+        android:padding="5dp">
 
         <ImageButton
             android:id="@+id/imgBtnPlayPause"
             style="@style/MyButton"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:src="@drawable/ic_play" />
 
         <ImageButton
             android:id="@+id/imgBtnStop"
             style="@style/MyButton"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:src="@drawable/ic_stop" />
 
         <Button
             android:id="@+id/btnReset"
             style="@style/MyButton"
             android:layout_width="wrap_content"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:text="@string/reset_score" />
 
         <ImageButton
             android:id="@+id/imgConfig"
             style="@style/MyButton"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:src="@drawable/ic_settings" />
     </LinearLayout>
 
@@ -199,9 +201,9 @@
         style="@style/TextTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
         android:maxLength="5"
         android:text="00:00"
         tools:ignore="HardcodedText" />

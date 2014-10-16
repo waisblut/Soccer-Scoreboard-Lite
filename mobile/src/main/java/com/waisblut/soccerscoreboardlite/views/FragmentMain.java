@@ -3,16 +3,23 @@ package com.waisblut.soccerscoreboardlite.views;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -43,6 +50,7 @@ public class FragmentMain
             this.code = i;
         }
 
+        @SuppressWarnings("unused")
         protected static TimerState fromValue(int value)
         {
             for (TimerState my : TimerState.values())
@@ -56,6 +64,7 @@ public class FragmentMain
             return null;
         }
 
+        @SuppressWarnings("unused")
         protected int getCode()
         {
             return code;
@@ -64,11 +73,13 @@ public class FragmentMain
 
     //region Variables...
     private TimerState mTimerState = null;
-    private long mDuration = 15000l;
+    private long mDuration = 8000l;//TODO CREATE DEFAULT TIMER TO START
+    private long mCurrentTimeLeft = 0l;
     private Timer mTimer = new Timer();
     private TextView mTxtTimer;
+    private ImageButton mBtnPlay, mBtnStop;
 
-    private RelativeLayout mRlA, mRlB, mRlA_Back, mRlB_Back;
+    private RelativeLayout mRlA, mRlB;// rlA_Back, rlB_Back;
     private Dialog mDlgHelp;
     private Button mBtnUndoA;
     private Button mBtnUndoB;
@@ -107,8 +118,11 @@ public class FragmentMain
 
         mRlA = (RelativeLayout) view.findViewById(R.id.lay_A);
         mRlB = (RelativeLayout) view.findViewById(R.id.lay_B);
-        mRlA_Back = (RelativeLayout) view.findViewById(R.id.lay_Back_A);
-        mRlB_Back = (RelativeLayout) view.findViewById(R.id.lay_Back_B);
+        //rlA_Back = (RelativeLayout) view.findViewById(R.id.lay_Back_A);
+        //rlB_Back = (RelativeLayout) view.findViewById(R.id.lay_Back_B);
+
+        mBtnPlay = (ImageButton) view.findViewById(R.id.imgBtnPlayPause);
+        mBtnStop = (ImageButton) view.findViewById(R.id.imgBtnStop);
         //endregion
 
         //region Init Score....
@@ -148,25 +162,8 @@ public class FragmentMain
                     break;
 
                 case R.id.txtTimer:
-                    //                    switch (mTimerState)
-                    //                    {
-                    //                    case PAUSED:
-                    //                        play();
-                    //                        break;
-                    //
-                    //                    case PLAYING:
-                    //                        pause();
-                    //                        break;
-                    //
-                    //                    case STOPPED:
-                    //                        play();
-                    //                        break;
-                    //
-                    //                    }
-                    //                    break;
-
-                    callTimePicker();
-                    play();
+                    //play();
+                    break;
                 }
 
                 return true;
@@ -183,6 +180,9 @@ public class FragmentMain
         mRlA.setOnClickListener(this);
         mRlB.setOnClickListener(this);
 
+        mBtnPlay.setOnClickListener(this);
+        mBtnStop.setOnClickListener(this);
+
         mBtnUndoA.setOnLongClickListener(myLongClick);
         mBtnUndoB.setOnLongClickListener(myLongClick);
         btnReset.setOnLongClickListener(myLongClick);
@@ -192,7 +192,16 @@ public class FragmentMain
         return view;
     }
 
-    private void callTimePicker() {}
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+
+        if (mDlgHelp != null)
+        {
+            mDlgHelp.dismiss();
+        }
+    }
 
     @Override
     public void onDestroy()
@@ -213,14 +222,29 @@ public class FragmentMain
             switch (v.getId())
             {
             case R.id.imgBtnHelp:
-                create_A_dialogHelp();
+                create_dialogHelp();
                 break;
 
             case R.id.btnReset:
                 Toast.makeText(getActivity(),
                                getResources().getString(R.string.long_press_reset),
                                Toast.LENGTH_SHORT).show();
-                showPicker();
+                create_dialogPicker(0, 11);
+                break;
+
+            case R.id.imgBtnPlayPause:
+                if (mTimerState == TimerState.PLAYING)
+                {
+                    pause();
+                }
+                else
+                {
+                    play();
+                }
+                break;
+
+            case R.id.imgBtnStop:
+                stop();
                 break;
             }
         }
@@ -266,27 +290,50 @@ public class FragmentMain
     //region Timer Methods
     private void play()
     {
-        //TODO To be implemented
-        //TODO Toogle between PLAY/PAUSE on Button
         Logger.log('d', "PLAY");
-        this.mTimerState = TimerState.PLAYING;
-        setCounter(mDuration);
+        if (mTimerState != TimerState.PLAYING)
+        {
+            mBtnStop.setEnabled(true);
+            mBtnPlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+
+            this.mTimerState = TimerState.PLAYING;
+            setCounter(mDuration);
+        }
     }
 
     private void pause()
     {
-        this.mTimerState = TimerState.PAUSED;
         Logger.log('d', "PAUSE");
-        //TODO To be implemented
+        mBtnStop.setEnabled(true);
+        mBtnPlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+        mDuration = mCurrentTimeLeft;
+        setMillisOnTextView(mTxtTimer, mDuration);
+        mTimer.cancel();
+        this.mTimerState = TimerState.PAUSED;
     }
 
     private void stop()
     {
-        this.mTimerState = TimerState.STOPPED;
         Logger.log('d', "STOP");
-        //TODO To be implemented
+
+        mBtnStop.setEnabled(false);
+        mBtnPlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+        this.mTimerState = TimerState.STOPPED;
+        mTimer.cancel();
+        mDuration = 0;
+        setMillisOnTextView(mTxtTimer, mDuration);
     }
     //endregion
+
+    private void animateTimer()
+    {
+        Animation animation = new AlphaAnimation(1, 0);
+        animation.setDuration(500);
+        animation.setInterpolator(new LinearInterpolator());
+        animation.setRepeatCount(5);
+        animation.setRepeatMode(Animation.REVERSE);
+        mTxtTimer.startAnimation(animation);
+    }
 
     private void setInitialSettings()
     {
@@ -304,7 +351,7 @@ public class FragmentMain
         setBackground(mRlB, mSp.getInt(Logger.TEAM_B_COLOR,
                                        R.drawable.background_team_divider_blue));
 
-        this.mTimerState = TimerState.STOPPED;
+        stop();
 
         //TODO DISABLE BUTTON STOP
     }
@@ -378,9 +425,7 @@ public class FragmentMain
     //endregion
 
     //region Dialog...
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-
-    private void create_A_dialogHelp()
+    private void create_dialogHelp()
     {
         mDlgHelp = new Dialog(getActivity());
 
@@ -395,21 +440,63 @@ public class FragmentMain
         mDlgHelp.show();
     }
 
-    private String getVersionName()
+    private void create_dialogPicker(int defMin, int defSec)
     {
-        String versionName = "";
-        try
-        {
-            versionName = getActivity().getPackageManager()
-                                       .getPackageInfo(getActivity().getPackageName(),
-                                                       0).versionName;
-        }
-        catch (PackageManager.NameNotFoundException e)
-        {
-            e.printStackTrace();
-        }
+        final Dialog dlgPicker = new Dialog(getActivity());
+        //WindowManager.LayoutParams wmlp;
+        final MyTimePicker timePicker;
+        Button btnSetTime, btnCancel;
 
-        return versionName;
+        setUpWindow(dlgPicker);
+
+        //        wmlp = dlgPicker.getWindow().getAttributes();
+        //        wmlp.horizontalMargin = 0.1f;
+        //        wmlp.verticalMargin = 0.1f;
+
+        dlgPicker.setContentView(R.layout.dialog_timepicker);
+
+        timePicker = (MyTimePicker) dlgPicker.findViewById(R.id.timePicker);
+        btnSetTime = (Button) dlgPicker.findViewById(R.id.btnSetTime);
+        btnCancel = (Button) dlgPicker.findViewById(R.id.btnCancel);
+
+        View.OnClickListener onClick = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                switch (v.getId())
+                {
+                case R.id.btnSetTime:
+                    mDuration =
+                            (timePicker.getCurrentMinute() * 60 + timePicker.getCurrentSeconds()) *
+                            1000;
+
+                    setMillisOnTextView(mTxtTimer, mDuration);
+                    break;
+
+                case R.id.btnCancel:
+                    break;
+                }
+                dlgPicker.dismiss();
+            }
+        };
+
+        dlgPicker.setOnDismissListener(new DialogInterface.OnDismissListener()
+        {
+            @Override
+            public void onDismiss(DialogInterface dialog)
+            {
+
+            }
+        });
+
+        btnSetTime.setOnClickListener(onClick);
+        btnCancel.setOnClickListener(onClick);
+
+        timePicker.setCurrentMinute(defMin);
+        timePicker.setCurrentSecond(defSec);
+
+        dlgPicker.show();
     }
 
     //region Dialog Methods....
@@ -466,6 +553,32 @@ public class FragmentMain
 
 
     }
+
+    private void setUpWindow(Dialog d)
+    {
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        d.getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+        d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        d.getWindow().setDimAmount(0.50f);
+    }
+
+    private String getVersionName()
+    {
+        String versionName = "";
+        try
+        {
+            versionName = getActivity().getPackageManager()
+                                       .getPackageInfo(getActivity().getPackageName(),
+                                                       0).versionName;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+        return versionName;
+    }
     //endregion
     //endregion
 
@@ -481,6 +594,7 @@ public class FragmentMain
             public void run()
             {
                 final long timeLeft = (startTime - System.currentTimeMillis());
+                mCurrentTimeLeft = timeLeft;
 
                 if (timeLeft > 0)
                 {
@@ -491,21 +605,44 @@ public class FragmentMain
                         public void run()
                         {
                             setMillisOnTextView(mTxtTimer, timeLeft);
-                            //mTxtTimer.setText(String.valueOf(timeLeft));
                         }
                     });
+
+                    if (timeLeft < 3000)
+                    {
+                        getActivity().runOnUiThread(new Runnable()
+                        {
+                            public void run()
+                            {
+                                animateTimer();
+                            }
+                        });
+                    }
                 }
                 else
                 {
                     Logger.log('d', "DONE");
 
-                    //playSound();
-
+                    playSound();
                     mTimer.cancel();
+
+                    getActivity().runOnUiThread(new Runnable()
+                    {
+                        public void run()
+                        {
+                            stop();
+                        }
+                    });
                 }
             }
 
         }, 0, 450);
+    }
+
+    private void playSound()
+    {
+        MediaPlayer mp = MediaPlayer.create(getActivity(), R.raw.whistle);
+        mp.start();
     }
 
     protected void setMillisOnTextView(TextView txtView, long millisUntilFinished)
@@ -520,25 +657,4 @@ public class FragmentMain
                                                    millisUntilFinished))));
     }
     //endregion
-
-    public void showPicker()
-    {
-        Dialog_MyTimePicker.OnTimeSetListener listener = new Dialog_MyTimePicker.OnTimeSetListener()
-        {
-            @Override
-            public void onTimeSet(MyTimePicker view, int minute, int seconds)
-            {
-                mDuration = (minute * 60 + seconds) * 1000;
-
-                setMillisOnTextView(mTxtTimer, mDuration);
-            }
-        };
-
-        //TODO PASS A DEFAULT MINUTE/SECOND
-        Dialog_MyTimePicker mTimePicker = new Dialog_MyTimePicker(this.getActivity(),
-                                                                  listener,
-                                                                  0,12);
-
-        mTimePicker.show();
-    }
 }
