@@ -78,9 +78,10 @@ public class FragmentMain
     private Timer mTimer = new Timer();
     private TextView mTxtTimer;
     private ImageButton mBtnPlay, mBtnStop;
+    private ImageButton mBtnSettings;
 
-    private RelativeLayout mRlA, mRlB;// rlA_Back, rlB_Back;
-    private Dialog mDlgHelp;
+    private RelativeLayout mRlA, mRlB;
+    private Dialog mDlgHelp, mDlgPicker, mDlgSettings;
     private Button mBtnUndoA;
     private Button mBtnUndoB;
     private TextView mTxtNameA, mTxtNameB;
@@ -123,6 +124,7 @@ public class FragmentMain
 
         mBtnPlay = (ImageButton) view.findViewById(R.id.imgBtnPlayPause);
         mBtnStop = (ImageButton) view.findViewById(R.id.imgBtnStop);
+        mBtnSettings = (ImageButton) view.findViewById(R.id.imgBtnSettings);
         //endregion
 
         //region Init Score....
@@ -162,7 +164,7 @@ public class FragmentMain
                     break;
 
                 case R.id.txtTimer:
-                    //play();
+                    create_dialogPicker(0, 11);
                     break;
                 }
 
@@ -182,6 +184,7 @@ public class FragmentMain
 
         mBtnPlay.setOnClickListener(this);
         mBtnStop.setOnClickListener(this);
+        mBtnSettings.setOnClickListener(this);
 
         mBtnUndoA.setOnLongClickListener(myLongClick);
         mBtnUndoB.setOnLongClickListener(myLongClick);
@@ -200,6 +203,16 @@ public class FragmentMain
         if (mDlgHelp != null)
         {
             mDlgHelp.dismiss();
+        }
+
+        if (mDlgPicker != null)
+        {
+            mDlgPicker.dismiss();
+        }
+
+        if (mDlgSettings != null)
+        {
+            mDlgSettings.dismiss();
         }
     }
 
@@ -229,7 +242,6 @@ public class FragmentMain
                 Toast.makeText(getActivity(),
                                getResources().getString(R.string.long_press_reset),
                                Toast.LENGTH_SHORT).show();
-                create_dialogPicker(0, 11);
                 break;
 
             case R.id.imgBtnPlayPause:
@@ -246,9 +258,14 @@ public class FragmentMain
             case R.id.imgBtnStop:
                 stop();
                 break;
+
+            case R.id.imgBtnSettings:
+                create_dialogSettings();
+                break;
             }
         }
         else
+
         {
             char tag = v.getTag().toString().charAt(0);
 
@@ -283,6 +300,7 @@ public class FragmentMain
                 break;
             }
         }
+
     }
     //endregion
 
@@ -320,7 +338,7 @@ public class FragmentMain
         mBtnPlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
         this.mTimerState = TimerState.STOPPED;
         mTimer.cancel();
-        mDuration = 0;
+        mDuration = mSp.getLong(Logger.CONST_DEFAULT_TIME, Logger.DEFAULT_TIME);
         setMillisOnTextView(mTxtTimer, mDuration);
     }
     //endregion
@@ -337,18 +355,18 @@ public class FragmentMain
 
     private void setInitialSettings()
     {
-        mCounterA = changeScore(mSp.getInt(Logger.TEAM_A_SCORE, 0), 'A');
-        mCounterB = changeScore(mSp.getInt(Logger.TEAM_B_SCORE, 0), 'B');
+        mCounterA = changeScore(mSp.getInt(Logger.CONST_TEAM_A_SCORE, 0), 'A');
+        mCounterB = changeScore(mSp.getInt(Logger.CONST_TEAM_B_SCORE, 0), 'B');
 
 
-        mTxtNameA.setText(mSp.getString(Logger.TEAM_A_NAME,
+        mTxtNameA.setText(mSp.getString(Logger.CONST_TEAM_A_NAME,
                                         getActivity().getResources().getString(R.string.team_A)));
-        mTxtNameB.setText(mSp.getString(Logger.TEAM_B_NAME,
+        mTxtNameB.setText(mSp.getString(Logger.CONST_TEAM_B_NAME,
                                         getActivity().getResources().getString(R.string.team_B)));
 
-        setBackground(mRlA, mSp.getInt(Logger.TEAM_A_COLOR,
+        setBackground(mRlA, mSp.getInt(Logger.CONST_TEAM_A_COLOR,
                                        R.drawable.background_team_divider_red));
-        setBackground(mRlB, mSp.getInt(Logger.TEAM_B_COLOR,
+        setBackground(mRlB, mSp.getInt(Logger.CONST_TEAM_B_COLOR,
                                        R.drawable.background_team_divider_blue));
 
         stop();
@@ -363,12 +381,12 @@ public class FragmentMain
         if (team == 'A')
         {
             mTxtScoreA.setText(String.valueOf(value));
-            mSp.edit().putInt(Logger.TEAM_A_SCORE, value).apply();
+            mSp.edit().putInt(Logger.CONST_TEAM_A_SCORE, value).apply();
         }
         else if (team == 'B')
         {
             mTxtScoreB.setText(String.valueOf(value));
-            mSp.edit().putInt(Logger.TEAM_B_SCORE, value).apply();
+            mSp.edit().putInt(Logger.CONST_TEAM_B_SCORE, value).apply();
         }
 
 
@@ -395,13 +413,17 @@ public class FragmentMain
 
     private void resetAll()
     {
-        mSp.edit().putInt(Logger.TEAM_A_SCORE, 0).apply();
-        mSp.edit().putString(Logger.TEAM_A_NAME, getResources().getString(R.string.team_A)).apply();
+        mSp.edit().putInt(Logger.CONST_TEAM_A_SCORE, 0).apply();
+        mSp.edit()
+           .putString(Logger.CONST_TEAM_A_NAME, getResources().getString(R.string.team_A))
+           .apply();
         mTxtNameA.setText(getResources().getString(R.string.team_A));
         setBackground(mRlA, R.drawable.background_team_divider_red);
 
-        mSp.edit().putInt(Logger.TEAM_B_SCORE, 0).apply();
-        mSp.edit().putString(Logger.TEAM_B_NAME, getResources().getString(R.string.team_B)).apply();
+        mSp.edit().putInt(Logger.CONST_TEAM_B_SCORE, 0).apply();
+        mSp.edit()
+           .putString(Logger.CONST_TEAM_B_NAME, getResources().getString(R.string.team_B))
+           .apply();
         mTxtNameB.setText(getResources().getString(R.string.team_B));
         setBackground(mRlB, R.drawable.background_team_divider_blue);
 
@@ -425,6 +447,19 @@ public class FragmentMain
     //endregion
 
     //region Dialog...
+    private void create_dialogSettings()
+    {
+//        mDlgSettings = new Dialog(getActivity());
+//
+//        mDlgSettings.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        mDlgSettings.setContentView(R.layout.dialog_settings);
+//
+//        mSp.edit().putLong(Logger.CONST_DEFAULT_TIME, (9999)).apply();//TODO FIX HERER
+//        //TODO CREATE SETTINGS DIALOG XML
+//
+//        mDlgSettings.show();
+    }
+
     private void create_dialogHelp()
     {
         mDlgHelp = new Dialog(getActivity());
@@ -442,22 +477,22 @@ public class FragmentMain
 
     private void create_dialogPicker(int defMin, int defSec)
     {
-        final Dialog dlgPicker = new Dialog(getActivity());
+        mDlgPicker = new Dialog(getActivity());
         //WindowManager.LayoutParams wmlp;
         final MyTimePicker timePicker;
         Button btnSetTime, btnCancel;
 
-        setUpWindow(dlgPicker);
+        setUpWindow(mDlgPicker);
 
         //        wmlp = dlgPicker.getWindow().getAttributes();
         //        wmlp.horizontalMargin = 0.1f;
         //        wmlp.verticalMargin = 0.1f;
 
-        dlgPicker.setContentView(R.layout.dialog_timepicker);
+        mDlgPicker.setContentView(R.layout.dialog_timepicker);
 
-        timePicker = (MyTimePicker) dlgPicker.findViewById(R.id.timePicker);
-        btnSetTime = (Button) dlgPicker.findViewById(R.id.btnSetTime);
-        btnCancel = (Button) dlgPicker.findViewById(R.id.btnCancel);
+        timePicker = (MyTimePicker) mDlgPicker.findViewById(R.id.timePicker);
+        btnSetTime = (Button) mDlgPicker.findViewById(R.id.btnSetTime);
+        btnCancel = (Button) mDlgPicker.findViewById(R.id.btnCancel);
 
         View.OnClickListener onClick = new View.OnClickListener()
         {
@@ -477,11 +512,11 @@ public class FragmentMain
                 case R.id.btnCancel:
                     break;
                 }
-                dlgPicker.dismiss();
+                mDlgPicker.dismiss();
             }
         };
 
-        dlgPicker.setOnDismissListener(new DialogInterface.OnDismissListener()
+        mDlgPicker.setOnDismissListener(new DialogInterface.OnDismissListener()
         {
             @Override
             public void onDismiss(DialogInterface dialog)
@@ -496,7 +531,7 @@ public class FragmentMain
         timePicker.setCurrentMinute(defMin);
         timePicker.setCurrentSecond(defSec);
 
-        dlgPicker.show();
+        mDlgPicker.show();
     }
 
     //region Dialog Methods....
@@ -544,11 +579,11 @@ public class FragmentMain
 
         if (v.getId() == mRlA.getId())
         {
-            mSp.edit().putInt(Logger.TEAM_A_COLOR, color).apply();
+            mSp.edit().putInt(Logger.CONST_TEAM_A_COLOR, color).apply();
         }
         else if (v.getId() == mRlB.getId())
         {
-            mSp.edit().putInt(Logger.TEAM_B_COLOR, color).apply();
+            mSp.edit().putInt(Logger.CONST_TEAM_B_COLOR, color).apply();
         }
 
 

@@ -181,7 +181,7 @@
             android:text="@string/reset_score" />
 
         <ImageButton
-            android:id="@+id/imgConfig"
+            android:id="@+id/imgBtnSettings"
             style="@style/MyButton"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
