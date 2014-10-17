@@ -1,64 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    style="@style/ColorButton.Blue"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal|center_vertical"
-    style="@style/ColorButton.Blue"
+    android:baselineAligned="false"
     android:gravity="center_horizontal|center_vertical">
 
-    <TextView
-        android:id="@+id/txtTitle"
-        style="@style/TextTeam"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="5dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/min_sec" />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <com.waisblut.soccerscoreboardlite.views.MyTimePicker
-        android:background="@drawable/custom_buttom"
-        android:id="@+id/timePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/txtTitle"
-        android:layout_margin="5dp"
-        android:padding="5dp" />
+        <TextView
+            android:id="@+id/txtTitle"
+            style="@style/TextTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/min_sec" />
+
+        <com.waisblut.soccerscoreboardlite.views.MyTimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/custom_buttom"
+            android:padding="5dp" />
+
+        <CheckBox
+            android:id="@+id/chkSetAsDefault"
+            style="@style/TextScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/set_as_default"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/timePicker"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btnSetTime"
             style="@style/MyButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-
-            android:layout_weight="1"
-            android:text="Set Time" />
+            android:layout_marginBottom="10dp"
+            android:text="@string/time_set"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnCancel"
             style="@style/MyButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="@string/cancel"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
