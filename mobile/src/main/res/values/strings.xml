@@ -29,7 +29,6 @@
     <string name="time_set">Set time</string>
     <string name="cancel">Cancel</string>
     <string name="time">Time : </string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="min_sec">min : sec</string>
     <string name="set_as_default">Set as Default</string>
 

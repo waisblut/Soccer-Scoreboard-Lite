@@ -26,5 +26,8 @@
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
     <string name="min_sec">min : sec</string>
-    <string name="set_as_default">Set as Default</string>
+    <string name="set_as_default">Définir par Défaut</string>
+    <string name="cancel">Annuler</string>
+    <string name="time_set">Régler l\'heure</string>
+    <string name="time">Tiempo :</string>
 </resources>

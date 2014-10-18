@@ -27,4 +27,7 @@
     <string name="stop">Stop</string>
     <string name="min_sec">min : sec</string>
     <string name="set_as_default">Set as Default</string>
+    <string name="cancel">Cancelar</string>
+    <string name="time_set">Establecer hora</string>
+    <string name="time">Temps :</string>
 </resources>
