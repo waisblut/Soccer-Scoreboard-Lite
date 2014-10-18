@@ -1,6 +1,4 @@
-<RelativeLayout
-    android:id="@+id/rlMain"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -84,8 +82,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:tag="A"
-                android:text="@string/undo"
-                android:textSize="21sp" />
+                android:text="@string/undo" />
 
             <TextView
                 android:id="@+id/txtScore_A"
@@ -130,8 +127,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_gravity="end"
                 android:tag="B"
-                android:text="@string/undo"
-                android:textSize="21sp" />
+                android:text="@string/undo" />
 
             <TextView
                 android:id="@+id/txtScore_B"
@@ -179,13 +175,6 @@
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:text="@string/reset_score" />
-
-        <ImageButton
-            android:id="@+id/imgBtnSettings"
-            style="@style/MyButton"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_settings" />
     </LinearLayout>
 
     <ImageButton
