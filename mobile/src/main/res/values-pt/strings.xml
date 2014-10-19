@@ -30,4 +30,5 @@
     <string name="cancel">Cancelar</string>
     <string name="time_set">Definir Tempo</string>
     <string name="time">Tempo :</string>
+    <string name="long_press_setTime">MANTENHA PRESSIONADO para ajusta o tempo</string>
 </resources>

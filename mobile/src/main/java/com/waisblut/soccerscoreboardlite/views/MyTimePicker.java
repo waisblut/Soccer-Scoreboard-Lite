@@ -11,6 +11,8 @@ import android.widget.NumberPicker;
 
 import com.waisblut.soccerscoreboardlite.R;
 
+import java.text.DecimalFormat;
+
 public class MyTimePicker
         extends FrameLayout
 {
@@ -246,6 +248,17 @@ public class MyTimePicker
     {
         this.mCurrentSeconds = currentSecond;
         updateSecondsDisplay();
+    }
+
+    public void setCurrentTime(long millis)
+    {
+
+        this.mCurrentSeconds = Integer.parseInt(new DecimalFormat().format(
+                ((millis / 60000f) % 1) * 60));
+        this.mCurrentMinute = (int) (millis / 60000);
+
+        updateSecondsDisplay();
+        updateMinuteDisplay();
     }
 
     private void onTimeChanged()

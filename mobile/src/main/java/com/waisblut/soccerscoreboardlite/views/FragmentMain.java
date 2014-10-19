@@ -78,12 +78,10 @@ public class FragmentMain
     private Timer mTimer = new Timer();
     private TextView mTxtTimer;
     private ImageButton mBtnPlay, mBtnStop;
-    private ImageButton mBtnSettings;
 
     private RelativeLayout mRlA, mRlB;
-    private Dialog mDlgHelp, mDlgPicker, mDlgSettings;
-    private Button mBtnUndoA;
-    private Button mBtnUndoB;
+    private Dialog mDlgHelp, mDlgPicker;
+    private Button mBtnUndoA, mBtnUndoB;
     private TextView mTxtNameA, mTxtNameB;
     private TextView mTxtScoreA, mTxtScoreB;
     private int mCounterA, mCounterB;
@@ -124,7 +122,6 @@ public class FragmentMain
 
         mBtnPlay = (ImageButton) view.findViewById(R.id.imgBtnPlayPause);
         mBtnStop = (ImageButton) view.findViewById(R.id.imgBtnStop);
-        mBtnSettings = (ImageButton) view.findViewById(R.id.imgBtnSettings);
         //endregion
 
         //region Init Score....
@@ -164,7 +161,7 @@ public class FragmentMain
                     break;
 
                 case R.id.txtTimer:
-                    create_dialogPicker(0, 11);
+                    create_dialogPicker();
                     break;
                 }
 
@@ -184,7 +181,8 @@ public class FragmentMain
 
         mBtnPlay.setOnClickListener(this);
         mBtnStop.setOnClickListener(this);
-        mBtnSettings.setOnClickListener(this);
+
+        mTxtTimer.setOnClickListener(this);
 
         mBtnUndoA.setOnLongClickListener(myLongClick);
         mBtnUndoB.setOnLongClickListener(myLongClick);
@@ -208,11 +206,6 @@ public class FragmentMain
         if (mDlgPicker != null)
         {
             mDlgPicker.dismiss();
-        }
-
-        if (mDlgSettings != null)
-        {
-            mDlgSettings.dismiss();
         }
     }
 
@@ -259,9 +252,12 @@ public class FragmentMain
                 stop();
                 break;
 
-            case R.id.imgBtnSettings:
-                create_dialogSettings();
+            case R.id.txtTimer:
+                Toast.makeText(getActivity(),
+                               getResources().getString(R.string.long_press_setTime),
+                               Toast.LENGTH_SHORT).show();
                 break;
+
             }
         }
         else
@@ -306,6 +302,17 @@ public class FragmentMain
 
     //region Private Methods...
     //region Timer Methods
+
+    //    private int convertMillisToMin(long millis)
+    //    {
+    //        return (int) (millis / 60000);
+    //    }
+    //
+    //    private int convertMillisToSec(long millis)
+    //    {
+    //        return Integer.parseInt(new DecimalFormat().format(((millis / 60000f) % 1) * 60));
+    //    }
+
     private void play()
     {
         Logger.log('d', "PLAY");
@@ -447,19 +454,6 @@ public class FragmentMain
     //endregion
 
     //region Dialog...
-    private void create_dialogSettings()
-    {
-//        mDlgSettings = new Dialog(getActivity());
-//
-//        mDlgSettings.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        mDlgSettings.setContentView(R.layout.dialog_settings);
-//
-//        mSp.edit().putLong(Logger.CONST_DEFAULT_TIME, (9999)).apply();//TODO FIX HERER
-//        //TODO CREATE SETTINGS DIALOG XML
-//
-//        mDlgSettings.show();
-    }
-
     private void create_dialogHelp()
     {
         mDlgHelp = new Dialog(getActivity());
@@ -475,7 +469,7 @@ public class FragmentMain
         mDlgHelp.show();
     }
 
-    private void create_dialogPicker(int defMin, int defSec)
+    private void create_dialogPicker()
     {
         mDlgPicker = new Dialog(getActivity());
         //WindowManager.LayoutParams wmlp;
@@ -507,6 +501,8 @@ public class FragmentMain
                             1000;
 
                     setMillisOnTextView(mTxtTimer, mDuration);
+
+                    mSp.edit().putLong(Logger.CONST_DEFAULT_TIME, mDuration).apply();
                     break;
 
                 case R.id.btnCancel:
@@ -528,8 +524,13 @@ public class FragmentMain
         btnSetTime.setOnClickListener(onClick);
         btnCancel.setOnClickListener(onClick);
 
-        timePicker.setCurrentMinute(defMin);
-        timePicker.setCurrentSecond(defSec);
+
+        //        int defMin = convertMillisToMin(mSp.getLong(Logger.CONST_DEFAULT_TIME, Logger.DEFAULT_TIME));
+        //        int defSec = convertMillisToSec(mSp.getLong(Logger.CONST_DEFAULT_TIME, Logger.DEFAULT_TIME));
+        //        timePicker.setCurrentMinute(defMin);
+        //        timePicker.setCurrentSecond(defSec);
+
+        timePicker.setCurrentTime(mSp.getLong(Logger.CONST_DEFAULT_TIME, Logger.DEFAULT_TIME));
 
         mDlgPicker.show();
     }

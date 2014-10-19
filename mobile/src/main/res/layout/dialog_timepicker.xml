@@ -32,16 +32,6 @@
             android:layout_margin="5dp"
             android:background="@drawable/custom_buttom"
             android:padding="5dp" />
-
-        <CheckBox
-            android:id="@+id/chkSetAsDefault"
-            style="@style/TextScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/set_as_default"
-            android:textSize="18sp"
-            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
