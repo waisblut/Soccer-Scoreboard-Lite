@@ -31,6 +31,6 @@
     <string name="time">Time : </string>
     <string name="min_sec">min : sec</string>
     <string name="set_as_default">Set as Default</string>
-    <string name="long_press_setTime">LONG PRESS to edit time</string>
+    <string name="long_press_setTime">LONG PRESS to edit time.</string>
 
 </resources>

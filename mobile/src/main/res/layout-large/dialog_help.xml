@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
     android:id="@+id/scrollView1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:scrollbars="vertical">
 
 
         <TableRow
@@ -89,21 +90,32 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_margin="10dp"
             android:gravity="center">
 
             <TextView
-                android:layout_span="2"
-                android:id="@+id/txtObs"
-                android:autoLink="email"
+                android:id="@+id/txtTimer"
+                style="@style/TextTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
-                android:text="@string/obs"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:layout_marginEnd="48dp"
+                android:layout_marginRight="48dp"
+                android:gravity="center"
+                android:maxLength="5"
+                android:text="00:00" />
+
+            <TextView
+                android:id="@+id/txtTimer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="@string/long_press_setTime"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -111,12 +123,29 @@
             android:gravity="center">
 
             <TextView
-                android:layout_span="2"
-                android:id="@+id/txtFullApp"
+                android:id="@+id/txtObs"
                 android:layout_width="wrap_content"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
+                android:layout_span="2"
+                android:autoLink="email"
+                android:text="@string/obs"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtFullApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_span="2"
+                android:gravity="center"
                 android:text="@string/full_version"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </TableRow>
