@@ -2,6 +2,7 @@ package com.waisblut.soccerscoreboardlite.views;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.waisblut.soccerscoreboardlite.R;
 
@@ -15,6 +16,7 @@ public class Main
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         if (savedInstanceState == null)
         {
