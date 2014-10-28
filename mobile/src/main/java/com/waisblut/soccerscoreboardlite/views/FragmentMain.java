@@ -190,6 +190,8 @@ public class FragmentMain
         //mRlB.setOnClickListener(this);
         mTxtScoreA.setOnClickListener(this);
         mTxtScoreB.setOnClickListener(this);
+        mTxtNameA.setOnClickListener(this);
+        mTxtNameB.setOnClickListener(this);
 
         mBtnPlay.setOnClickListener(this);
         mBtnStop.setOnClickListener(this);
