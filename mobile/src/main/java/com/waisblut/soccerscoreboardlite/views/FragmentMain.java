@@ -240,87 +240,67 @@ public class FragmentMain
     @Override
     public void onClick(View v)
     {
-        if (v.getTag() == null)
+
+        switch (v.getId())
         {
-            switch (v.getId())
+        case R.id.txtTeam_A:
+        case R.id.txtTeam_B:
+            Toast.makeText(getActivity(),
+                           getResources().getString(R.string.long_press_editName),
+                           Toast.LENGTH_SHORT).show();
+            break;
+
+        case R.id.imgBtnHelp:
+            create_dialogHelp();
+            break;
+
+        case R.id.btnReset:
+            Toast.makeText(getActivity(),
+                           getResources().getString(R.string.long_press_reset),
+                           Toast.LENGTH_SHORT).show();
+            break;
+
+        case R.id.imgBtnPlayPause:
+            if (mTimerState == TimerState.PLAYING)
             {
-            case R.id.txtTeam_A:
-            case R.id.txtTeam_B:
-                Toast.makeText(getActivity(),
-                               getResources().getString(R.string.long_press_editName),
-                               Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.imgBtnHelp:
-                create_dialogHelp();
-                break;
-
-            case R.id.btnReset:
-                Toast.makeText(getActivity(),
-                               getResources().getString(R.string.long_press_reset),
-                               Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.imgBtnPlayPause:
-                if (mTimerState == TimerState.PLAYING)
-                {
-                    pause();
-                }
-                else
-                {
-                    play();
-                }
-                break;
-
-            case R.id.imgBtnStop:
-                stop();
-                break;
-
-            case R.id.txtTimer:
-                Toast.makeText(getActivity(),
-                               getResources().getString(R.string.long_press_setTime),
-                               Toast.LENGTH_SHORT).show();
-                break;
-
+                pause();
             }
-        }
-        else
-
-        {
-            char tag = v.getTag().toString().charAt(0);
-
-            switch (tag)
+            else
             {
-            case 'A':
-                if (v.getId() != mBtnUndoA.getId())
-                {
-                    mCounterA++;
-                    mCounterA = changeScore(mCounterA, 'A');
-                }
-                else
-                {
-                    Toast.makeText(getActivity(),
-                                   getResources().getString(R.string.long_press_undo),
-                                   Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-            case 'B':
-                if (v.getId() != mBtnUndoB.getId())
-                {
-                    mCounterB++;
-                    mCounterB = changeScore(mCounterB, 'B');
-                }
-                else
-                {
-                    Toast.makeText(getActivity(),
-                                   getResources().getString(R.string.long_press_undo),
-                                   Toast.LENGTH_SHORT).show();
-                }
-                break;
+                play();
             }
-        }
+            break;
 
+        case R.id.imgBtnStop:
+            stop();
+            break;
+
+        case R.id.txtTimer:
+            Toast.makeText(getActivity(),
+                           getResources().getString(R.string.long_press_setTime),
+                           Toast.LENGTH_SHORT).show();
+            break;
+
+        case R.id.txtScore_A:
+            mCounterA++;
+            mCounterA = changeScore(mCounterA, 'A');
+
+            break;
+
+        case R.id.txtScore_B:
+            mCounterB++;
+            mCounterB = changeScore(mCounterB, 'B');
+
+            break;
+
+        case R.id.btnUndo_A:
+        case R.id.btnUndo_B:
+            Toast.makeText(getActivity(),
+                           getResources().getString(R.string.long_press_undo),
+                           Toast.LENGTH_SHORT).show();
+
+            break;
+        }
     }
     //endregion
 
