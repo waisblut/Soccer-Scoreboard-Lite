@@ -21,6 +21,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -80,7 +81,7 @@ public class FragmentMain
     private ImageButton mBtnPlay, mBtnStop;
 
     private RelativeLayout mRlA, mRlB;
-    private Dialog mDlgHelp, mDlgPicker;
+    private Dialog mDlgEditTeamName, mDlgHelp, mDlgPicker;
     private Button mBtnUndoA, mBtnUndoB;
     private TextView mTxtNameA, mTxtNameB;
     private TextView mTxtScoreA, mTxtScoreB;
@@ -117,8 +118,6 @@ public class FragmentMain
 
         mRlA = (RelativeLayout) view.findViewById(R.id.lay_A);
         mRlB = (RelativeLayout) view.findViewById(R.id.lay_B);
-        //rlA_Back = (RelativeLayout) view.findViewById(R.id.lay_Back_A);
-        //rlB_Back = (RelativeLayout) view.findViewById(R.id.lay_Back_B);
 
         mBtnPlay = (ImageButton) view.findViewById(R.id.imgBtnPlayPause);
         mBtnStop = (ImageButton) view.findViewById(R.id.imgBtnStop);
@@ -156,12 +155,23 @@ public class FragmentMain
                     else
                     {
                         resetCounters();
+                        Toast.makeText(getActivity(),
+                                       getResources().getString(R.string.long_press_reset_all),
+                                       Toast.LENGTH_SHORT).show();
                     }
                     stop();
                     break;
 
                 case R.id.txtTimer:
                     create_dialogPicker();
+                    break;
+
+                case R.id.txtTeam_A:
+                    create_dialogEditTeamName('A');
+                    break;
+
+                case R.id.txtTeam_B:
+                    create_dialogEditTeamName('B');
                     break;
                 }
 
@@ -176,8 +186,10 @@ public class FragmentMain
         btnReset.setOnClickListener(this);
         mBtnUndoA.setOnClickListener(this);
         mBtnUndoB.setOnClickListener(this);
-        mRlA.setOnClickListener(this);
-        mRlB.setOnClickListener(this);
+        //mRlA.setOnClickListener(this);
+        //mRlB.setOnClickListener(this);
+        mTxtScoreA.setOnClickListener(this);
+        mTxtScoreB.setOnClickListener(this);
 
         mBtnPlay.setOnClickListener(this);
         mBtnStop.setOnClickListener(this);
@@ -188,6 +200,9 @@ public class FragmentMain
         mBtnUndoB.setOnLongClickListener(myLongClick);
         btnReset.setOnLongClickListener(myLongClick);
         mTxtTimer.setOnLongClickListener(myLongClick);
+
+        mTxtNameA.setOnLongClickListener(myLongClick);
+        mTxtNameB.setOnLongClickListener(myLongClick);
         //endregion
 
         return view;
@@ -197,6 +212,11 @@ public class FragmentMain
     public void onPause()
     {
         super.onPause();
+
+        if (mDlgEditTeamName != null)
+        {
+            mDlgEditTeamName.dismiss();
+        }
 
         if (mDlgHelp != null)
         {
@@ -213,11 +233,6 @@ public class FragmentMain
     public void onDestroy()
     {
         super.onDestroy();
-
-        if (mDlgHelp != null)
-        {
-            mDlgHelp.dismiss();
-        }
     }
 
     @Override
@@ -227,6 +242,13 @@ public class FragmentMain
         {
             switch (v.getId())
             {
+            case R.id.txtTeam_A:
+            case R.id.txtTeam_B:
+                Toast.makeText(getActivity(),
+                               getResources().getString(R.string.long_press_editName),
+                               Toast.LENGTH_SHORT).show();
+                break;
+
             case R.id.imgBtnHelp:
                 create_dialogHelp();
                 break;
@@ -454,6 +476,61 @@ public class FragmentMain
     //endregion
 
     //region Dialog...
+    private void create_dialogEditTeamName(final char tag)
+    {
+        mDlgEditTeamName = new Dialog(getActivity());
+        ImageButton imgBtnOk, imgBtnCancel;
+        final EditText edtTeamName;
+
+        setUpWindow(mDlgEditTeamName);
+
+        mDlgEditTeamName.setContentView(R.layout.dialog_editteamname);
+
+        imgBtnOk = (ImageButton) mDlgEditTeamName.findViewById(R.id.dlgEditTeamName_imgBtnOk);
+        imgBtnCancel = (ImageButton) mDlgEditTeamName.findViewById(R.id.dlgEditTeamName_imgBtnCancel);
+        edtTeamName = (EditText) mDlgEditTeamName.findViewById(R.id.dlgEditTeamName_editTeamName);
+
+
+        mDlgEditTeamName.setOnDismissListener(new DialogInterface.OnDismissListener()
+        {
+            @Override
+            public void onDismiss(DialogInterface dialog)
+            {
+
+            }
+        });
+
+        View.OnClickListener onClick = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                switch (v.getId())
+                {
+                case R.id.dlgEditTeamName_imgBtnOk:
+                    if (tag == 'A')
+                    {
+                        mTxtNameA.setText(edtTeamName.getText().toString().trim());
+                    }
+                    else if (tag == 'B')
+                    {
+                        mTxtNameB.setText(edtTeamName.getText().toString().trim());
+                    }
+                    break;
+
+                case R.id.dlgEditTeamName_imgBtnCancel:
+                    break;
+                }
+                mDlgEditTeamName.dismiss();
+            }
+        };
+
+        imgBtnOk.setOnClickListener(onClick);
+        imgBtnCancel.setOnClickListener(onClick);
+
+        mDlgEditTeamName.show();
+    }
+
     private void create_dialogHelp()
     {
         mDlgHelp = new Dialog(getActivity());
@@ -477,10 +554,6 @@ public class FragmentMain
         Button btnSetTime, btnCancel;
 
         setUpWindow(mDlgPicker);
-
-        //        wmlp = dlgPicker.getWindow().getAttributes();
-        //        wmlp.horizontalMargin = 0.1f;
-        //        wmlp.verticalMargin = 0.1f;
 
         mDlgPicker.setContentView(R.layout.dialog_timepicker);
 
@@ -511,16 +584,6 @@ public class FragmentMain
                 mDlgPicker.dismiss();
             }
         };
-
-        mDlgPicker.setOnDismissListener(new DialogInterface.OnDismissListener()
-        {
-            @Override
-            public void onDismiss(DialogInterface dialog)
-            {
-
-            }
-        });
-
         btnSetTime.setOnClickListener(onClick);
         btnCancel.setOnClickListener(onClick);
 
