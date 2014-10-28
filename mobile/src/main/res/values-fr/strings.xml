@@ -31,5 +31,5 @@
     <string name="time_set">Régler l\'heure</string>
     <string name="time">Tiempo :</string>
     <string name="long_press_setTime">APPUI LONG pour définir le temps.</string>
-    <string name="long_press_editName">APPUI LONG à Modifier le nom de l'équipe.</string>
+    <string name="long_press_editName">APPUI LONG à Modifier le nom de l\'équipe.</string>
 </resources>
