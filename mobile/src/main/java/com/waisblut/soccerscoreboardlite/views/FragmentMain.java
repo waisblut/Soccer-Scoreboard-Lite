@@ -186,8 +186,6 @@ public class FragmentMain
         btnReset.setOnClickListener(this);
         mBtnUndoA.setOnClickListener(this);
         mBtnUndoB.setOnClickListener(this);
-        //mRlA.setOnClickListener(this);
-        //mRlB.setOnClickListener(this);
         mTxtScoreA.setOnClickListener(this);
         mTxtScoreB.setOnClickListener(this);
         mTxtNameA.setOnClickListener(this);
@@ -306,16 +304,6 @@ public class FragmentMain
 
     //region Private Methods...
     //region Timer Methods
-
-    //    private int convertMillisToMin(long millis)
-    //    {
-    //        return (int) (millis / 60000);
-    //    }
-    //
-    //    private int convertMillisToSec(long millis)
-    //    {
-    //        return Integer.parseInt(new DecimalFormat().format(((millis / 60000f) % 1) * 60));
-    //    }
 
     private void play()
     {
@@ -517,7 +505,6 @@ public class FragmentMain
     {
         mDlgHelp = new Dialog(getActivity());
 
-        //mDlgHelp.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDlgHelp.setContentView(R.layout.dialog_help);
         mDlgHelp.setTitle(getString(R.string.app_name) + " " + getVersionName());
 
@@ -531,7 +518,6 @@ public class FragmentMain
     private void create_dialogPicker()
     {
         mDlgPicker = new Dialog(getActivity());
-        //WindowManager.LayoutParams wmlp;
         final MyTimePicker timePicker;
         Button btnSetTime, btnCancel;
 
@@ -568,12 +554,6 @@ public class FragmentMain
         };
         btnSetTime.setOnClickListener(onClick);
         btnCancel.setOnClickListener(onClick);
-
-
-        //        int defMin = convertMillisToMin(mSp.getLong(Logger.CONST_DEFAULT_TIME, Logger.DEFAULT_TIME));
-        //        int defSec = convertMillisToSec(mSp.getLong(Logger.CONST_DEFAULT_TIME, Logger.DEFAULT_TIME));
-        //        timePicker.setCurrentMinute(defMin);
-        //        timePicker.setCurrentSecond(defSec);
 
         timePicker.setCurrentTime(mSp.getLong(Logger.CONST_DEFAULT_TIME, Logger.DEFAULT_TIME));
 
@@ -681,23 +661,30 @@ public class FragmentMain
                 {
                     Logger.log('d', "Ticking...." + (timeLeft));
 
-                    getActivity().runOnUiThread(new Runnable()
-                    {
-                        public void run()
-                        {
-                            setMillisOnTextView(mTxtTimer, timeLeft);
-                        }
-                    });
-
-                    if (timeLeft < 3000)
+                    if (getActivity() != null)
                     {
                         getActivity().runOnUiThread(new Runnable()
                         {
                             public void run()
                             {
-                                animateTimer();
+                                setMillisOnTextView(mTxtTimer, timeLeft);
                             }
                         });
+
+                        if (timeLeft < 3000)
+                        {
+                            getActivity().runOnUiThread(new Runnable()
+                            {
+                                public void run()
+                                {
+                                    animateTimer();
+                                }
+                            });
+                        }
+                    }
+                    else
+                    {
+                        mTimer.cancel();
                     }
                 }
                 else
