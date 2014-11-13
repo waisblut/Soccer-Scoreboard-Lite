@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -315,6 +316,8 @@ public class FragmentMain
 
             this.mTimerState = TimerState.PLAYING;
             setCounter(mDuration);
+
+            mTxtTimer.setTextColor(Color.GREEN);
         }
     }
 
@@ -327,6 +330,8 @@ public class FragmentMain
         setMillisOnTextView(mTxtTimer, mDuration);
         mTimer.cancel();
         this.mTimerState = TimerState.PAUSED;
+
+        mTxtTimer.setTextColor(Color.YELLOW);
     }
 
     private void stop()
@@ -339,6 +344,8 @@ public class FragmentMain
         mTimer.cancel();
         mDuration = mSp.getLong(Logger.CONST_DEFAULT_TIME, Logger.DEFAULT_TIME);
         setMillisOnTextView(mTxtTimer, mDuration);
+
+        mTxtTimer.setTextColor(Color.RED);
     }
     //endregion
 
