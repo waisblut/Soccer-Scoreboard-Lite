@@ -175,8 +175,14 @@
             android:layout_width="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
-
             android:text="@string/reset_score" />
+
+        <ImageButton
+            android:id="@+id/imgBtnSwap"
+            style="@style/MyButton.10"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_swap" />
     </LinearLayout>
 
     <ImageButton

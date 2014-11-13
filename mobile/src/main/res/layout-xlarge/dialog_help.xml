@@ -20,21 +20,21 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/imgBtn_Config_A"
+                android:id="@+id/imgBtn_swap"
                 style="@style/MyButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_marginEnd="48dp"
                 android:layout_marginRight="48dp"
-                android:src="@drawable/ic_settings" />
+                android:src="@drawable/ic_swap" />
 
             <TextView
                 android:id="@+id/txtconfig"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="@string/help_config.10"
+                android:text="@string/help_swap"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </TableRow>
 
