@@ -13,7 +13,7 @@
     <string name="help_undo.10">MANTENHA PRESSIONADO para desfazer um gol.</string>
     <string name="help_undo.7">MANTENHA PRESSIONADO para desfazer um gol.</string>
     <string name="long_press_reset">MANTENHA PRESSIONADO para Zerar o placar</string>
-    <string name="long_press_reset_all">MANTENHA PRESSIONADO NOVAMENTE para Zerar\nnome dos times</string>
+    <string name="long_press_reset_all">MANTENHA PRESSIONADO NOVAMENTE para Zerar\nnome e cor dos times</string>
     <string name="long_press_undo">MANTENHA PRESSIONADO para desfazer UM gol</string>
     <string name="pick_color">Escolha uma cor</string>
     <string name="reset_score">Zerar Placar</string>
@@ -32,4 +32,5 @@
     <string name="time">Tempo :</string>
     <string name="long_press_setTime">MANTENHA PRESSIONADO para ajusta o tempo.</string>
     <string name="long_press_editName">MANTENHA PRESSIONADO para alterar o nome do time.</string>
+    <string name="help_swap">PRESSIONE\npara inverter o lado dos times.</string>
 </resources>

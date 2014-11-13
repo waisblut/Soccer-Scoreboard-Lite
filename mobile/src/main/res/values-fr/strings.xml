@@ -11,7 +11,7 @@
     <string name="help_undo.10">APPUI LONG à annuler un but.</string>
     <string name="help_undo.7">APPUI LONG à annuler un but.</string>
     <string name="long_press_reset">APPUI LONG pour réinitialiser Scores</string>
-    <string name="long_press_reset_all">APPUI LONG pour\nréinitialiser équipes Nom</string>
+    <string name="long_press_reset_all">APPUI LONG pour\nréinitialiser équipes Nom et la couleur</string>
     <string name="long_press_undo">APPUI LONG à annuler la dernière un but</string>
     <string name="pick_color">Choisissez une couleur</string>
     <string name="action_settings">Paramètres</string>
@@ -32,4 +32,5 @@
     <string name="time">Tiempo :</string>
     <string name="long_press_setTime">APPUI LONG pour définir le temps.</string>
     <string name="long_press_editName">APPUI LONG à Modifier le nom de l\'équipe.</string>
+    <string name="help_swap">APPUYEZ\npour passer côtes de l\'equipe.</string>
 </resources>

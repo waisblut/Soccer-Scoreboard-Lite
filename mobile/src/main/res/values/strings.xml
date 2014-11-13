@@ -11,7 +11,7 @@
     <string name="long_press_reset">LONG PRESS to Reset Scores</string>
     <string name="reset_score">Reset Scores</string>
     <string name="long_press_undo">LONG PRESS to Undo One score</string>
-    <string name="long_press_reset_all">LONG PRESS AGAIN to Reset\nTeams Name</string>
+    <string name="long_press_reset_all">LONG PRESS AGAIN to Reset\nTeams Name and Color</string>
     <string name="help_config">PRESS to\nSet team Name and Color.</string>
     <string name="help_config.7">PRESS to\nSet team Name and Color.</string>
     <string name="help_config.10">PRESS to Set team Name and Color.</string>
@@ -21,6 +21,7 @@
     <string name="help_reset">LONG PRESS to Reset Scores\nIf Score is 0:0, then it will\nReset Team Name and Color.</string>
     <string name="help_reset.7">LONG PRESS to Reset Scores.  If Score is 0:0,\nthen it will Reset Team Name and Color.</string>
     <string name="help_reset.10">LONG PRESS to Reset Scores.  If Score is 0:0,\nthen it will Reset Team Name and Color.</string>
+    <string name="help_swap">PRESS to switch team sides.</string>
     <string name="obs">* This is the Free Version.\n\n- Some features are only available on the Paid Version.\n\n- For any comment or suggestion, please contact us at\nwaisblutmobileapp@gmail.com\n\n- If you like this Application, please support Development by installing the US$0.99 Version ;)</string>
     <string name="full_version"><![CDATA[<a href="https://play.google.com/store/apps/developer?id=Waisblut+Mobile+Applications">PRESS HERE FOR THE FULL VERSION</a><p>(Yet to be released!)</p>]]></string>
     <string name="play">Play</string>
@@ -33,5 +34,6 @@
     <string name="set_as_default">Set as Default</string>
     <string name="long_press_setTime">LONG PRESS to edit time.</string>
     <string name="long_press_editName">LONG PRESS to Edit Team Name.</string>
+
 
 </resources>

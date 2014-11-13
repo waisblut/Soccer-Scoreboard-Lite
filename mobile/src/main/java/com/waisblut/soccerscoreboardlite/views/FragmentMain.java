@@ -74,12 +74,13 @@ public class FragmentMain
     }
 
     //region Variables...
+    private boolean mSwapped = false;
     private TimerState mTimerState = null;
     private long mDuration = 8000l;//TODO CREATE DEFAULT TIMER TO START
     private long mCurrentTimeLeft = 0l;
     private Timer mTimer = new Timer();
     private TextView mTxtTimer;
-    private ImageButton mBtnPlay, mBtnStop;
+    private ImageButton mBtnPlay, mBtnStop, mBtnSwap;
 
     private RelativeLayout mRlA, mRlB;
     private Dialog mDlgEditTeamName, mDlgHelp, mDlgPicker;
@@ -122,6 +123,7 @@ public class FragmentMain
 
         mBtnPlay = (ImageButton) view.findViewById(R.id.imgBtnPlayPause);
         mBtnStop = (ImageButton) view.findViewById(R.id.imgBtnStop);
+        mBtnSwap = (ImageButton) view.findViewById(R.id.imgBtnSwap);
         //endregion
 
         //region Init Score....
@@ -194,6 +196,7 @@ public class FragmentMain
 
         mBtnPlay.setOnClickListener(this);
         mBtnStop.setOnClickListener(this);
+        mBtnSwap.setOnClickListener(this);
 
         mTxtTimer.setOnClickListener(this);
 
@@ -299,6 +302,9 @@ public class FragmentMain
                            Toast.LENGTH_SHORT).show();
 
             break;
+
+        case R.id.imgBtnSwap:
+            swapSides();
         }
     }
     //endregion
@@ -347,7 +353,6 @@ public class FragmentMain
 
         mTxtTimer.setTextColor(Color.RED);
     }
-    //endregion
 
     private void animateTimer()
     {
@@ -358,12 +363,42 @@ public class FragmentMain
         animation.setRepeatMode(Animation.REVERSE);
         mTxtTimer.startAnimation(animation);
     }
+    //endregion
+
+    private void swapSides()
+    {
+        String txtTemp;
+        int counterTemp;
+
+        txtTemp = mTxtNameB.getText().toString();
+        counterTemp = mCounterB;
+
+        mTxtNameB.setText(mTxtNameA.getText().toString());
+        mCounterB = mCounterA;
+
+        mTxtNameA.setText(txtTemp);
+        mCounterA = counterTemp;
+
+        changeScore(mCounterA, 'A');
+        changeScore(mCounterB, 'B');
+
+        mSwapped = !mSwapped;
+
+        setBackground(mRlA,
+                      mSwapped ? R.drawable.background_team_divider_blue : R.drawable.background_team_divider_red);
+        setBackground(mRlB,
+                      mSwapped ? R.drawable.background_team_divider_red : R.drawable.background_team_divider_blue);
+
+    }
 
     private void setInitialSettings()
     {
-        mCounterA = changeScore(mSp.getInt(Logger.CONST_TEAM_A_SCORE, 0), 'A');
-        mCounterB = changeScore(mSp.getInt(Logger.CONST_TEAM_B_SCORE, 0), 'B');
+        //This code will catch last saved score
+        //mCounterA = changeScore(mSp.getInt(Logger.CONST_TEAM_A_SCORE, 0), 'A');
+        //mCounterB = changeScore(mSp.getInt(Logger.CONST_TEAM_B_SCORE, 0), 'B');
 
+        mCounterA = changeScore(0, 'A');
+        mCounterB = changeScore(0, 'B');
 
         mTxtNameA.setText(mSp.getString(Logger.CONST_TEAM_A_NAME,
                                         getActivity().getResources().getString(R.string.team_A)));
@@ -419,6 +454,8 @@ public class FragmentMain
 
     private void resetAll()
     {
+        mSwapped = false;
+
         mSp.edit().putInt(Logger.CONST_TEAM_A_SCORE, 0).apply();
         mSp.edit()
            .putString(Logger.CONST_TEAM_A_NAME, getResources().getString(R.string.team_A))
@@ -426,13 +463,13 @@ public class FragmentMain
         mTxtNameA.setText(getResources().getString(R.string.team_A));
         setBackground(mRlA, R.drawable.background_team_divider_red);
 
+
         mSp.edit().putInt(Logger.CONST_TEAM_B_SCORE, 0).apply();
         mSp.edit()
            .putString(Logger.CONST_TEAM_B_NAME, getResources().getString(R.string.team_B))
            .apply();
         mTxtNameB.setText(getResources().getString(R.string.team_B));
         setBackground(mRlB, R.drawable.background_team_divider_blue);
-
     }
 
     private void resetCounters()
@@ -582,10 +619,10 @@ public class FragmentMain
                 switch (v.getTag().toString().charAt(0))
                 {
                 case 'A':
-                    v.setBackground(getResources().getDrawable(R.drawable.background_team_divider_red));
+                    v.setBackground(getResources().getDrawable(mSwapped ? R.drawable.background_team_divider_blue : R.drawable.background_team_divider_red));
                     break;
                 case 'B':
-                    v.setBackground(getResources().getDrawable(R.drawable.background_team_divider_blue));
+                    v.setBackground(getResources().getDrawable(mSwapped ? R.drawable.background_team_divider_red : R.drawable.background_team_divider_blue));
                     break;
                 }
             }
@@ -601,10 +638,10 @@ public class FragmentMain
                 switch (v.getTag().toString().charAt(0))
                 {
                 case 'A':
-                    v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background_team_divider_red));
+                    v.setBackgroundDrawable(getResources().getDrawable(mSwapped ? R.drawable.background_team_divider_blue : R.drawable.background_team_divider_red));
                     break;
                 case 'B':
-                    v.setBackgroundDrawable(getResources().getDrawable(R.drawable.background_team_divider_blue));
+                    v.setBackgroundDrawable(getResources().getDrawable(mSwapped ? R.drawable.background_team_divider_red : R.drawable.background_team_divider_blue));
                     break;
                 }
             }

@@ -12,7 +12,8 @@
     <string name="help_undo.10">PULSACIÓN LARGA para Deshacer Una puntuación.</string>
     <string name="help_undo.7">PULSACIÓN LARGA para Deshacer Una puntuación.</string>
     <string name="long_press_reset">PULSACIÓN LARGA para borrar todos los puntajes</string>
-    <string name="long_press_reset_all">PULSACIÓN LARGA DE NUEVO para borrar nombre de los equipos</string>
+    <string name="long_press_reset_all">PULSACIÓN LARGA DE NUEVO para borrar nombre y color de los equipos</string>
+    <string name="help_swap">PULSE\npara cambiar los lados del equipo.</string>
     <string name="long_press_undo">PULSACIÓN LARGA para Deshacer Una puntuación</string>
     <string name="pick_color">Elija un color</string>
     <string name="reset_score">Resetear Puntuaciones</string>
@@ -32,4 +33,5 @@
     <string name="time">Temps :</string>
     <string name="long_press_setTime">PULSACIÓN LARGA para ajustar el tiempo.</string>
     <string name="long_press_editName">PULSACIÓN LARGA para Editar Nombre del Equipo.</string>
+
 </resources>
