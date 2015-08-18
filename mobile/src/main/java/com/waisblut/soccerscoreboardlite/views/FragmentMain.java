@@ -545,6 +545,17 @@ public class FragmentMain
         mDlgEditTeamName.show();
     }
 
+    private ImageButton setImgButton(int id, View.OnClickListener myClick, char tag)
+    {
+        ImageButton imgButton;
+
+        imgButton = (ImageButton) mDlgEditTeamName.findViewById(id);
+        imgButton.setTag(tag);
+        imgButton.setOnClickListener(myClick);
+
+        return imgButton;
+    }
+
     private void create_dialogHelp()
     {
         mDlgHelp = new Dialog(getActivity());
