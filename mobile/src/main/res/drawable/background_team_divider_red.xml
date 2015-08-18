@@ -12,5 +12,5 @@
         android:right="5dp"
         android:top="5dp" />
 
-    <gradient android:angle="270" android:endColor="#AAFF0000" android:startColor="#aaFF8C7A" />
+    <gradient android:angle="270" android:endColor="#ffFF0000" android:centerColor="#AAFF0000" android:startColor="#ffFF0000" />
 </shape>
