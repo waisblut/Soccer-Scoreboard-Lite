@@ -22,7 +22,7 @@
     <string name="team_B">Visitantes</string>
     <string name="undo">-1</string>
     <string name="obs">* Esta es la versión gratuita.\n\n- Algunas funciones sólo están disponibles en la versión de pago. \n\n- Para cualquier comentario o sugerencia, por favor contacte con nosotros en waisblutmobileapp@gmail.com\n\n- Si te gusta esta aplicación, por favor apoye el desarrollo del mismo, mediante la instalación de la versón de US$0.99 ;)</string>
-    <string name="full_version"><![CDATA[<a href="https://play.google.com/store/apps/developer?id=Waisblut+Mobile+Applications">PULSE AQUÍ PARA LA VERSIÓN COMPLETA</a><p>(Para ser lanzado más tarde!)</p>]]></string>
+    <string name="full_version"><![CDATA[<a href="https://play.google.com/store/apps/developer?id=Waisblut+Apps">PULSE AQUÍ PARA LA VERSIÓN COMPLETA</a><p>(Para ser lanzado más tarde!)</p>]]></string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>

@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Placar da Pelada Lite</string>
     <string name="action_settings">Configurações</string>
-    <string name="full_version"><![CDATA[<a href="https://play.google.com/store/apps/developer?id=Waisblut+Mobile+Applications">CLIQUE AQUI PARA A VERSÃO FULL</a><p>(A ser lançada ainda!)</p>]]></string>
+    <string name="full_version"><![CDATA[<a href="https://play.google.com/store/apps/developer?id=Waisblut+Apps">CLIQUE AQUI PARA A VERSÃO FULL</a><p>(A ser lançada ainda!)</p>]]></string>
     <string name="help_config">PRESSIONE para\nconfigurar nome e cor do time.</string>
     <string name="help_config.10">PRESSIONE para configurar nome e cor do time.</string>
     <string name="help_config.7">PRESSIONE para\nconfigurar nome e cor do time.</string>
