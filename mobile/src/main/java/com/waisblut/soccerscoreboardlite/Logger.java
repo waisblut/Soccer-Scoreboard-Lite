@@ -7,6 +7,8 @@ public final class Logger
     //Project Constants
     private final static String TAG = "waisblut";
 
+    public final static char A = 'A';
+    public final static char B = 'B';
     public final static String CONST_TEAM_A_SCORE = "Team A Score";
     public final static String CONST_TEAM_B_SCORE = "Team B Score";
     public final static String CONST_TEAM_A_NAME = "Team A Name";

@@ -33,5 +33,6 @@
     <string name="time">Temps :</string>
     <string name="long_press_setTime">PULSACIÓN LARGA para ajustar el tiempo.</string>
     <string name="long_press_editName">PULSACIÓN LARGA para Editar Nombre del Equipo.</string>
+    <string name="reset_all">Eliminar todo</string>
 
 </resources>
