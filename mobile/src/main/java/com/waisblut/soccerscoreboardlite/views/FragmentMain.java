@@ -171,6 +171,19 @@ public class FragmentMain
                 case R.id.txtTeam_B:
                     create_dialogEditTeamName('B');
                     break;
+
+                case R.id.imgBtnPlayPause:
+                    if (mTimerState == TimerState.PLAYING) {
+                        pause();
+                    }
+                    else {
+                        play();
+                    }
+                    break;
+
+                case R.id.imgBtnStop:
+                    stop();
+                    break;
                 }
 
                 return true;
@@ -202,6 +215,10 @@ public class FragmentMain
 
         mTxtNameA.setOnLongClickListener(myLongClick);
         mTxtNameB.setOnLongClickListener(myLongClick);
+
+        mBtnPlay.setOnLongClickListener(myLongClick);
+        mBtnStop.setOnLongClickListener(myLongClick);
+        mBtnSwap.setOnLongClickListener(myLongClick);
         //endregion
 
         return view;
@@ -254,15 +271,24 @@ public class FragmentMain
 
         case R.id.imgBtnPlayPause:
             if (mTimerState == TimerState.PLAYING) {
-                pause();
+                Toast.makeText(getActivity(),
+                               getResources().getString(R.string.long_press_pause),
+                               Toast.LENGTH_SHORT)
+                     .show();
             }
             else {
-                play();
+                Toast.makeText(getActivity(),
+                               getResources().getString(R.string.long_press_play),
+                               Toast.LENGTH_SHORT)
+                     .show();
             }
             break;
 
         case R.id.imgBtnStop:
-            stop();
+            Toast.makeText(getActivity(),
+                           getResources().getString(R.string.long_press_stop),
+                           Toast.LENGTH_SHORT)
+                 .show();
             break;
 
         case R.id.txtTimer:

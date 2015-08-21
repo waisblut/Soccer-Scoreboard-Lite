@@ -34,4 +34,7 @@
     <string name="long_press_editName">MANTENHA PRESSIONADO para alterar o nome do time.</string>
     <string name="help_swap">PRESSIONE\npara inverter o lado dos times.</string>
     <string name="reset_all">Apagar tudo</string>
+    <string name="long_press_pause">MANTENHA PRESSIONADO para PAUSAR o cronômetro.</string>
+    <string name="long_press_play">MANTENHA PRESSIONADO para LIGAR o cronômetro.</string>
+    <string name="long_press_stop">MANTENHA PRESSIONADO para ZERAR o cronômetro.</string>
 </resources>

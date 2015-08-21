@@ -30,9 +30,12 @@
     <string name="set_as_default">Set as Default</string>
     <string name="cancel">Cancelar</string>
     <string name="time_set">Establecer hora</string>
-    <string name="time">Temps :</string>
-    <string name="long_press_setTime">PULSACIÓN LARGA para ajustar el tiempo.</string>
+    <string name="time">Tiempo:</string>
+    <string name="long_press_setTime">PULSACIÓN LARGA para ajustar el temporizador.</string>
     <string name="long_press_editName">PULSACIÓN LARGA para Editar Nombre del Equipo.</string>
     <string name="reset_all">Eliminar todo</string>
+    <string name="long_press_pause">PULSACIÓN LARGA para PAUSAR el tiempo.</string>
+    <string name="long_press_play">PULSACIÓN LARGA para ACTIVAR el temporizador.</string>
+    <string name="long_press_stop">PULSACIÓN LARGA para restablecer el temporizador.</string>
 
 </resources>

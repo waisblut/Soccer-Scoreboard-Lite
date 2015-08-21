@@ -29,9 +29,12 @@
     <string name="set_as_default">Définir par Défaut</string>
     <string name="cancel">Annuler</string>
     <string name="time_set">Régler l\'heure</string>
-    <string name="time">Tiempo :</string>
-    <string name="long_press_setTime">APPUI LONG pour définir le temps.</string>
+    <string name="time">Temps:</string>
+    <string name="long_press_setTime">APPUI LONG pour définir le chronomètre.</string>
     <string name="long_press_editName">APPUI LONG à Modifier le nom de l\'équipe.</string>
     <string name="help_swap">APPUYEZ\npour passer côtes de l\'equipe.</string>
     <string name="reset_all">Réinitialiser tout</string>
+    <string name="long_press_pause">APPUI LONG pour suspendre le chronomètre.</string>
+    <string name="long_press_play">APPUI LONG à allumer le chronomètre.</string>
+    <string name="long_press_stop">APPUI LONG pour réinitialiser le chronomètre.</string>
 </resources>
