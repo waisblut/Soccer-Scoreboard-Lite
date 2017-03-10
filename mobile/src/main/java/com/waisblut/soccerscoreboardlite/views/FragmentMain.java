@@ -96,6 +96,10 @@ public class FragmentMain
                              ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+        getActivity().getWindow()
+                     .getDecorView()
+                     .setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_FULLSCREEN);
+//ARRUMAR AQUI....para versoes anteriores
 
         getActivity().getWindow()
                      .setBackgroundDrawable(null);
