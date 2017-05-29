@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ColorButton.Blue"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal|center_vertical"
-    android:baselineAligned="false"
-    android:gravity="center_horizontal|center_vertical">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:id="@+id/lin1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -21,32 +20,37 @@
             style="@style/TextTeam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:gravity="center_horizontal|center_vertical"
             android:text="@string/min_sec" />
 
         <com.waisblut.soccerscoreboardlite.views.MyTimePicker
             android:id="@+id/timePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/custom_buttom"
-            android:padding="5dp" />
+            android:padding="3dp" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:id="@+id/lin2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/lin1"
+        android:layout_toRightOf="@id/lin1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="3dp">
 
         <Button
             android:id="@+id/btnSetTime"
             style="@style/MyButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:text="@string/time_set"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -54,10 +58,12 @@
         <Button
             android:id="@+id/btnCancel"
             style="@style/MyButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@string/cancel"
             android:textSize="18sp"
             android:textStyle="bold" />
+
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
