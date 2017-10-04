@@ -1,6 +1,8 @@
-package com.waisblut.soccerscoreboardlite;
+package com.waisblut.soccerscoreboardlite.util;
 
 import android.util.Log;
+
+import com.waisblut.soccerscoreboardlite.BuildConfig;
 
 public final class Logger
 {

@@ -32,7 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.waisblut.soccerscoreboardlite.Logger;
+import com.waisblut.soccerscoreboardlite.util.Logger;
 import com.waisblut.soccerscoreboardlite.R;
 
 import java.util.Timer;

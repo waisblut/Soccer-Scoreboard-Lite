@@ -1,14 +1,14 @@
 package com.waisblut.soccerscoreboardlite.views;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.waisblut.soccerscoreboardlite.R;
 
 
 public class Main
-        extends Activity
+        extends AppCompatActivity
 {
 
     @Override
